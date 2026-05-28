@@ -121,19 +121,34 @@ def ensure_model_loaded(workdir, device, omograph_model_size, use_dictionary, cu
     return accentizer is not None
 
 # ----------------------------------------------------------------------
+def process_text_safe_word_by_word(text, accentizer):
+    """Обрабатывает каждое слово отдельно, проблемные слова пропускает без ударений."""
+    import re
+    # Разбиваем на слова и остальное (пробелы, знаки препинания)
+    tokens = re.findall(r'(\w+|[^\w\s]+|\s+)', text)
+    result = []
+    for token in tokens:
+        if re.match(r'^\w+$', token):  # это слово (буквы/цифры/подчёркивание)
+            try:
+                stressed = accentizer.process_all(token)
+                result.append(stressed)
+            except Exception:
+                result.append(token)   # слово с ошибкой – без ударений
+        else:
+            result.append(token)       # пробелы, знаки препинания – без изменений
+    return ''.join(result)
+
 def process_text(input_text, workdir, device, omograph_model_size, use_dictionary, custom_dict, tiny_mode):
     if not input_text or not input_text.strip():
         return "⚠️ Введите текст."
-    # Автоматически загружаем модель, если нужно
+    
     ensure_model_loaded(workdir, device, omograph_model_size, use_dictionary, custom_dict, tiny_mode)
     if accentizer is None:
-        return "⚠️ Не удалось загрузить модель. Проверьте настройки и нажмите «Загрузить модель вручную»."
-    try:
-        stressed = accentizer.process_all(input_text)
-        return stressed
-    except Exception as e:
-        return f"❌ Ошибка обработки: {str(e)}"
-
+        return "⚠️ Не удалось загрузить модель. Проверьте настройки."
+    
+    # Безопасная обработка: слова с ошибками останутся без ударений
+    return process_text_safe_word_by_word(input_text, accentizer)
+    
 def process_file(file_obj, workdir, device, omograph_model_size, use_dictionary, custom_dict, tiny_mode):
     if file_obj is None:
         return "", "⚠️ Файл не выбран."
