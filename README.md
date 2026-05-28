@@ -26,5 +26,5 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/yourusername/ruaccent-webui.git
-cd ruaccent-webui
+git clone https://github.com/crwg/ruaccent_auto.git
+cd ruaccent_auto
