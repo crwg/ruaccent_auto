@@ -1,6 +1,6 @@
 # RUAccent Web Interface — расстановка ударений в русском тексте
 
-## Веб-интерфейс на базе [Gradio](https://gradio.app/) для расстановки ударений в русских текстах
+### Веб-интерфейс на базе [Gradio](https://gradio.app/) для расстановки ударений в русских текстах
 ### С использованием библиотеки [RUAccent](https://github.com/Den4ikAI/ruaccent)
 
 - Поддерживает GPU (CUDA), выбор модели (`turbo3.1`, `big_poetry`)
