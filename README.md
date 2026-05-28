@@ -34,8 +34,16 @@ pip install onnxruntime-gpu
 ```bash
 git clone https://github.com/crwg/ruaccent_auto.git
 cd ruaccent_auto
+pip install -r requirements.txt
 ```
 ## Запуск
 
 ```bash
 python gradio_server.py
+```
+### Не хочется устанавливать всё глобально?
+```bash
+python -m venv venv
+venv/Scripts/activate
+```
+И уже затем тянем все зависимости из requirements.txt
