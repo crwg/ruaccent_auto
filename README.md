@@ -47,10 +47,3 @@ python -m venv venv
 venv/Scripts/activate
 ```
 И уже затем тянем все зависимости из requirements.txt
-
-## Текст не должен содержать орфографических ошибок
-Видите :
-```bash
-❌ Ошибка обработки: Required inputs (['token_type_ids']) are missing from input feed (['input_ids', 'attention_mask']).
-```
-Значит в тексте ошибка, надо исправить
