@@ -26,3 +26,8 @@
 ```bash
 git clone https://github.com/crwg/ruaccent_auto.git
 cd ruaccent_auto
+```
+## Запуск
+
+```bash
+python gradio_server.py
